@@ -1,0 +1,260 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<f:facet name="first">
+		<link type="text/css" rel="stylesheet"
+			href="ressources/css/styles.css" />
+	</f:facet>
+	<h:outputStylesheet library="css" name="ressources/css/styles.css" />
+	<h:outputScript library="js" name="ressources/js/material.min.js"></h:outputScript>
+
+
+
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+	<link rel="stylesheet"
+		href="ressources/css/material.cyan-light_blue.min.css"></link>
+	<link rel="stylesheet" href="ressources/css/styles.css"></link>
+	<link rel="stylesheet" href="ressources/css/style_s.css"></link>
+	<script src="ressources/js/jquery.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="ressources/js/bootstrap.min.js"></script>
+	<script src="ressources/js/bootshape.js"></script>
+
+	<link href="ressources/css/bootstrap.css" rel="stylesheet"></link>
+
+	<link rel="stylesheet" type="text/css" href="ressources/css/to-do.css"></link>
+	<link href="ressources/css/bootshape.css" rel="stylesheet"
+		type="text/css"></link>
+	<style>
+#view-source {
+	position: fixed;
+	display: block;
+	right: 0;
+	bottom: 0;
+	margin-right: 40px;
+	margin-bottom: 40px;
+	z-index: 900;
+}
+</style>
+</h:head>
+<body>
+	<div
+		class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+		<header
+			class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+			<div class="mdl-layout__header-row">
+				<span class="mdl-layout-title">Home</span>
+				<div class="mdl-layout-spacer"></div>
+
+
+			</div>
+		</header>
+		<div
+			class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+			<header class="demo-drawer-header">
+				<img src="ressources/images/geec.png" class=""></img>
+				<div class="demo-avatar-dropdown">
+
+					<div class="mdl-layout-spacer"></div>
+
+				</div>
+			</header>
+			<nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+				        <p:commandButton value="Acceuil" actionListener="#{powerCtrl.gethome()}"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+       <p:commandButton value="Suivi de production" actionListener="#{powerCtrl.getStock()}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+</p:commandButton>
+       <p:commandButton value="Utilisateur" actionListener="#{powerCtrl.getuser()}"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+       <p:commandButton  actionListener="#{powerCtrl.getstats()}" value="Statestiques"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+ 
+    <p:commandButton  actionListener="#{powerCtrl.getSpark()}" value="Sparks"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+        <p:commandButton value="logout"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+
+			</nav>
+		</div>
+
+		<main class="mdl-layout__content mdl-color--grey-100">
+		<div class="mdl-grid demo-content1">
+			<div
+				class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+
+				<f:view>
+					<p:tabView id="tab" dynamic="true">
+						<p:tab title="Suivi Matiére Premiere">
+							<h:form id="form1">
+ <p:commandButton value="Basic" type="button" onclick="PF('add').show();" />								<h:panelGrid columns="3" cellpadding="5">
+									<p:selectOneMenu id="aMenu" value="#{stockCtrl.dateS}">
+										<f:selectItem itemLabel="Choisir l'interval)" itemValue="" />
+										<f:selectItem itemLabel="Semaine" itemValue="week" />
+										<f:selectItem itemLabel="Mois" itemValue="month" />
+										<f:selectItem itemLabel="Années" itemValue="year" />
+									</p:selectOneMenu>
+									<p:commandButton id="btnLanguage"
+										action="#{stockCtrl.refreshChart()}" value="Update"
+										update="mySP">
+									</p:commandButton>
+
+								</h:panelGrid>
+								<p:chart id="mySP" type="line"
+									model="#{stockCtrl.dateModelStockMP}" style="height:400px;" />
+                             <p:dialog header="Basic Dialog" widgetVar="add" minHeight="40">
+								<h:form id="a">
+									<p:panel header="Ajouter la Quantité journialiere de blé"
+										toggleable="true">
+										<h:panelGrid columns="2" cellpadding="5">
+											<h:outputLabel for="ble"
+												value="Quantité de blé insérer en kg :" />
+											<p:inputText id="ble" value="#{stockCtrl.stkMP.ble}"
+												required="true"></p:inputText>
+											<h:outputLabel for="farine" value="Farine" />
+											<p:inputText id="farine"
+												value="#{stockCtrl.stkMP.bleToFarine}" required="true"></p:inputText>
+											<h:outputLabel for="semoule" value="Semoule" />
+											<p:inputText id="semoule"
+												value="#{stockCtrl.stkMP.bleToSemoule}" required="true"></p:inputText>
+											<h:outputLabel for="quanti" value="Quantité en stock" />
+											<h:outputLabel id="quanti"
+												value="#{stockCtrl.stock.quantite}" />
+											<f:facet name="footer">
+												<p:commandButton value="Ajouter Quantité"
+													actionListener="#{stockCtrl.addMP()}">
+													<p:ajax update=":tab:form1:a" resetValues="true" />
+												</p:commandButton>
+
+											</f:facet>
+										</h:panelGrid>
+									</p:panel>
+								</h:form>
+								</p:dialog>
+								<p:panel header="Historique" toggleable="true">
+									<p:dataTable id='b' var="matierepre"
+										value="#{stockCtrl.matierePremieres}" paginator="true"
+										paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="5,10,15" sortBy="#{matierepre.date}"
+										sortOrder="descending">
+										<f:facet name="header">
+        Historique des Entrer en Stock Blé avec la répartition
+    </f:facet>
+										<p:column headerText="Date">
+											<h:outputText value="#{matierepre.date}" />
+										</p:column>
+
+										<p:column headerText="Quantité de blé insérer  (kg)">
+											<h:outputText value="#{matierepre.ble}" />
+										</p:column>
+										<p:column headerText="Farine  (kg)">
+											<h:outputText value="#{matierepre.bleToFarine}" />
+										</p:column>
+										<p:column headerText="Semoule (kg)">
+											<h:outputText value="#{matierepre.bleToSemoule}" />
+										</p:column>
+
+									</p:dataTable>
+
+								</p:panel>
+
+							</h:form>
+						</p:tab>
+						<p:tab title="Suivi Produit Fini">
+							<h:form>
+								<h:panelGrid columns="2" cellpadding="5">
+									<f:facet name="header">
+										<h:outputLabel value="Suivi de la production finite :" />
+
+
+									</f:facet>
+									<h:outputLabel for="cpf" value="Quantité produite farine :" />
+									<p:inputText id="cpf"
+										value="#{stockCtrl.stockProduitsFinis.farine}"></p:inputText>
+									<h:outputLabel for="cps" value="Quantité produite semoule :" />
+									<p:inputText id="cps"
+										value="#{stockCtrl.stockProduitsFinis.semoule}"></p:inputText>
+
+									<f:facet name="footer">
+										<p:commandButton value="Sauvgarder"
+											actionListener="#{stockCtrl.addPF()}">
+										</p:commandButton>
+										<p:commandButton value="Calculer la production"
+								               type="button" onclick="PF('dlg2').show();">
+										</p:commandButton>
+                                   <p:dialog header="Rapport d'Etat" widgetVar="dlg2" minHeight="40">
+  	<h:panelGrid columns="2" cellpadding="5">
+  	<h:outputLabel for="sM" value="Etat production Minoterie :" />
+  	<h:outputLabel id="sM" value="#{stockCtrl.statusMinoterie}" />
+  	<h:outputLabel for="sF" value="Etat production Farine :" />
+  	<h:outputLabel id="sF" value="#{stockCtrl.statusFarine}" />
+  	<h:outputLabel for="sS" value="Etat production Semoule :" />
+  	<h:outputLabel id="sS" value="#{stockCtrl.statusSemoule}" />
+  	  	<h:outputLabel value="tous les détails dans l'onlget Production" />
+  	
+  	</h:panelGrid>
+</p:dialog>
+									</f:facet>
+								</h:panelGrid>
+							</h:form>
+							<p:dataTable id='b1' var="prodfini"
+								value="#{stockCtrl.produitsFinis}" paginator="true"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15">
+								<f:facet name="header">
+        Historique de la production 
+    </f:facet>
+								<p:column headerText="Date">
+									<h:outputText value="#{prodfini.date}" />
+								</p:column>
+
+								<p:column headerText="Farine Produite  (kg)">
+									<h:outputText value="#{prodfini.farine}" />
+								</p:column>
+								<p:column headerText="Semoule Produite  (kg)">
+									<h:outputText value="#{prodfini.semoule}" />
+								</p:column>
+
+
+							</p:dataTable>
+						</p:tab>
+						<p:tab title="Production">
+							<p:dataTable id='b2' var="prod" value="#{stockCtrl.productions}"
+								paginator="true"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15" sortBy="#{prod.date}">
+								<f:facet name="header">
+                                       Historique de la production 
+                           </f:facet>
+								<p:column headerText="Date">
+									<h:outputText value="#{prod.date}" />
+								</p:column>
+
+								<p:column headerText="Etat production Minoterie ">
+									<h:outputText value="#{prod.rendementTotale}" />
+								</p:column>
+								<p:column headerText="Etat production Farine">
+									<h:outputText value="#{prod.rendementFarine}" />
+								</p:column>
+								<p:column headerText="Etat production Semoule">
+									<h:outputText value="#{prod.rendomentSemoule}" />
+								</p:column>
+
+
+							</p:dataTable>
+
+						</p:tab>
+					</p:tabView>
+				</f:view>
+			</div>
+		</div>
+		</main>
+	</div>
+	<script src="ressources/js/material.min.js"></script>
+</body>
+</html>

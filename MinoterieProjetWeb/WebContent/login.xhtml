@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+	</f:facet>
+
+	
+</h:head>
+<body>
+
+	<f:view>
+<h:form>
+
+		<div class="materialContainer">
+
+
+			<div class="box">
+<p:growl id="growl" ></p:growl>
+				<div class="title">G E E C</div>
+
+				<div class="input">
+
+					<p:inputText  value="#{loginCtrl.users.login}" requiredMessage="Username required" placeholder="username" required="true"/>
+
+
+
+				</div>
+
+				<div class="input">
+					<p:password value="#{loginCtrl.users.mdp}" requiredMessage="Password required" placeholder="password" required="true" />
+
+				</div>
+
+				<div class="button login">
+			
+    <p:commandButton id="submit" action="#{loginCtrl.doLogin()}" value="login" update="growl"></p:commandButton>
+				
+				</div>
+				
+				
+				
+
+
+			</div>
+
+		</div>
+
+</h:form>
+
+
+
+	</f:view>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html > 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+
+	<f:facet name="first">
+		<link type="text/css" rel="stylesheet"
+			href="ressources/css/styles.css" />
+	</f:facet>
+	<h:outputStylesheet library="css" name="ressources/css/styles.css" />
+	<h:outputScript library="js" name="ressources/js/material.min.js"></h:outputScript>
+
+	
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+    <link rel="stylesheet" href="ressources/css/material.cyan-light_blue.min.css"></link>
+    <link rel="stylesheet" href="ressources/css/styles.css"></link>
+     <link rel="stylesheet" href="ressources/css/style_s.css"></link>
+       <script src="ressources/js/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="ressources/js/bootstrap.min.js"></script>
+    <script src="ressources/js/bootshape.js"></script>
+    
+      <link href="ressources/css/bootstrap.css" rel="stylesheet"></link>
+   
+      <link rel="stylesheet" type="text/css" href="ressources/css/to-do.css"></link>
+    <link href="ressources/css/bootshape.css" rel="stylesheet" type="text/css"></link>
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+</h:head> 
+<body> 
+
+<f:view>
+<h:form id="form">
+<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+         <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Home</span>
+          <div class="mdl-layout-spacer"></div>
+
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img src="ressources/images/geec.png" class=""></img>
+          <div class="demo-avatar-dropdown">
+            
+            <div class="mdl-layout-spacer"></div>
+            
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+        <p:commandButton value="Acceuil" actionListener="#{powerCtrl.gethome()}"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+       <p:commandButton value="Suivi de production" actionListener="#{powerCtrl.getStock()}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+</p:commandButton>
+       <p:commandButton value="Utilisateur" actionListener="#{powerCtrl.getuser()}"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+       <p:commandButton  actionListener="#{powerCtrl.getstats()}" value="Statestiques"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+ 
+    <p:commandButton  actionListener="#{powerCtrl.getSpark()}" value="Sparks"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+        <p:commandButton value="logout"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+  
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--grey-100">
+      
+
+    
+            
+     
+        <div class="mdl-grid demo-content1">
+ <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+       <h:form id="ajouter">
+       <p align="left">
+       <p:commandLink  onclick="PF('dlg').show();" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" >
+  <i class="material-icons">add</i>
+</p:commandLink>
+  </p>
+   <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+  <p:dialog header="Nouvel Utilisateur" widgetVar="dlg" resizable="false" hideEffect="fade"    onHide="PF('dlg').content.empty()">
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel for="username" value="Login :" />
+            <p:inputText id="username" value="#{userCtrl.userModif.login}" required="true"  />
+ 
+            <h:outputLabel for="password" value="Password:" />
+            <p:password id="password" value="#{userCtrl.userModif.mdp}" required="true"  />
+            <h:outputLabel for="nom" value="Nom :" />
+            <p:inputText id="nom" value="#{userCtrl.userModif.firstName}" required="true"  />
+            <h:outputLabel for="prenom" value="Prénom :" />
+            <p:inputText id="prenom" value="#{userCtrl.userModif.lastName}" required="true"  />
+            <h:outputLabel for="email" value="Email :" />
+            <p:inputText id="email" value="#{userCtrl.userModif.email}" required="true"  />
+            <h:outputLabel for="role" value="Role :" />
+            <h:selectOneMenu id="role" value="#{userCtrl.userModif.role}" style="wloginth:100%">
+                     <f:selectItem itemLabel="Choisir le role" itemValue="" />
+                     <f:selectItem itemLabel="Fonctionnaire" itemValue="user" />
+                      <f:selectItem itemLabel="Gérant" itemValue="admin" />
+                   </h:selectOneMenu>
+ 
+            <f:facet name="footer">
+                <p:commandButton  value="Login" actionListener="#{userCtrl.ajouter()}" oncomplete="handleLoginRequest(xhr, status, args)" update="growl"
+                                />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+ <div class="mdl-card__actions mdl-card--border"></div>
+   <p:dataTable id="usersApp" var="user" value="#{userCtrl.utilisateurs}" editable="true" > 
+       <f:facet name="header">
+           Liste des Utilisateurs
+       </f:facet>
+ 
+    <p:ajax event="rowEdit" listener="#{userCtrl.onRowEdit}"  process="@this" />
+       <p:column headerText="login">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{user.login}" /></f:facet>
+               <f:facet name="input"><p:inputText id="modelInput1" value="#{user.login}" /></f:facet>
+           </p:cellEditor>
+       </p:column>
+    
+            <p:column headerText="Nom">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{user.firstName}" /></f:facet>
+               <f:facet name="input"><p:inputText id="modelInput2" value="#{user.firstName}" /></f:facet>
+           </p:cellEditor>
+       </p:column>
+      
+              <p:column headerText="Prénom">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{user.lastName}" /></f:facet>
+               <f:facet name="input"><p:inputText id="modelInput3" value="#{user.lastName}" /></f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+    
+    
+       <p:column headerText="email">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{user.email}" /></f:facet>
+               <f:facet name="input"><p:inputText value="#{user.email}" style="wloginth:100%" label="email"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column headerText="role">
+           <p:cellEditor>
+               <f:facet name="output"> 
+                  <h:outputText  value="#{user.role}" />
+               </f:facet>
+               <f:facet name="input">
+                   <h:selectOneMenu value="#{user.role}" style="wloginth:100%">
+                     <f:selectItem itemLabel="Choisir le role" itemValue="" />
+                     <f:selectItem itemLabel="Fonctionnaire" itemValue="user" />
+                      <f:selectItem itemLabel="Gérant" itemValue="admin" />
+                   </h:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+         <p:column headerText="Status">
+           <p:cellEditor>
+               <f:facet name="output"> 
+                 
+                  <h:outputText  value="No" target="_blank" rendered="#{user.blocked eq 0}" />
+                  <h:outputText  value="Yes" target="_blank" rendered="#{user.blocked eq 1}" />
+               </f:facet>
+               <f:facet name="input">
+                   <h:selectOneMenu value="#{user.blocked}" style="wloginth:100%">
+                     <f:selectItem itemLabel="Choisir le Status" itemValue="" />
+                     <f:selectItem itemLabel="Active" itemValue="0" />
+                      <f:selectItem itemLabel="Blocked" itemValue="1" />
+                   </h:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+ 
+       <p:column headerText="Modifier" >
+           <p:rowEditor  />
+       </p:column>
+   </p:dataTable>
+ 
+
+<div class="mdl-card__actions mdl-card--border"></div>
+
+          </h:form>
+</div>
+</div>
+
+
+   
+</main>
+    </div>
+     
+    
+    <script src="ressources/js/material.min.js"></script>
+    </h:form>
+    
+    <script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+      
+            PF('dlg').hide();
+   
+    }
+</script>
+</f:view>
+</body> 
+</html>

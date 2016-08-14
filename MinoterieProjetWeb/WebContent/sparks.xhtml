@@ -1,0 +1,151 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+
+	<f:facet name="first">
+		<link type="text/css" rel="stylesheet"
+			href="ressources/css/styles.css" />
+	</f:facet>
+	<h:outputStylesheet library="css" name="ressources/css/styles.css" />
+	<h:outputScript library="js" name="ressources/js/material.min.js"></h:outputScript>
+
+
+
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+	<link rel="stylesheet"
+		href="ressources/css/material.cyan-light_blue.min.css"></link>
+	<link rel="stylesheet" href="ressources/css/styles.css"></link>
+	<link rel="stylesheet" href="ressources/css/style_s.css"></link>
+	<script src="ressources/js/jquery.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="ressources/js/bootstrap.min.js"></script>
+	<script src="ressources/js/bootshape.js"></script>
+
+	<link href="ressources/css/bootstrap.css" rel="stylesheet"></link>
+
+	<link rel="stylesheet" type="text/css" href="ressources/css/to-do.css"></link>
+	<link href="ressources/css/bootshape.css" rel="stylesheet"
+		type="text/css"></link>
+	<style>
+#view-source {
+	position: fixed;
+	display: block;
+	right: 0;
+	bottom: 0;
+	margin-right: 40px;
+	margin-bottom: 40px;
+	z-index: 900;
+}
+</style>
+</h:head>
+<body>
+
+	<f:view>
+	
+			<div
+				class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+				<header
+					class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+					<div class="mdl-layout__header-row">
+						<span class="mdl-layout-title">Home</span>
+						<div class="mdl-layout-spacer"></div>
+						
+					</div>
+				</header>
+				<div
+					class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+					<header class="demo-drawer-header">
+						<img src="ressources/images/geec.png" class=""></img>
+						<div class="demo-avatar-dropdown">
+
+							<div class="mdl-layout-spacer"></div>
+
+						</div>
+					</header>
+					<h:form>
+					<nav
+						class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+			        <p:commandButton value="Acceuil" actionListener="#{powerCtrl.gethome()}"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+       <p:commandButton value="Suivi de production" actionListener="#{powerCtrl.getStock()}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+</p:commandButton>
+       <p:commandButton value="Utilisateur" actionListener="#{powerCtrl.getuser()}"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+       <p:commandButton  actionListener="#{powerCtrl.getstats()}" value="Statestiques"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+ 
+    <p:commandButton  actionListener="#{powerCtrl.getSpark()}" value="Sparks"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+        <p:commandButton value="logout"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+ </p:commandButton> 
+					</nav>
+					</h:form>
+				</div>
+				<main class="mdl-layout__content mdl-color--grey-100">
+
+
+
+
+
+				<div class="mdl-grid demo-content1">
+						<div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" id="tzq">
+							
+												<h:form id="listsparks">
+								
+									<p:dataTable id='tableuser' var="spark" value="#{sparkCtrl.spark}"
+										paginator="true" sortBy="#{spark.date}" sortOrder="descending"
+										paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="5,10,15" widgetVar="tableuser">
+										<f:facet name="header">
+
+										</f:facet>
+										<p:column headerText="Date">
+											<h:outputText value="#{spark.date}" />
+										</p:column>
+
+										<p:column headerText="Type ">
+											<h:outputText value="#{spark.typeSpark}" />
+										</p:column>
+										<p:column headerText="Duree">
+											<h:outputText value="#{spark.duree}" />
+										</p:column>
+										<p:column headerText="Site ">
+											<h:outputText value="#{spark.siteRef}" />
+										</p:column>
+
+									</p:dataTable>
+									</h:form>
+															
+								<h:form>
+					
+					<p:poll interval="3" listener="#{sparkCtrl.refeshSpark()}"
+						update=":listsparks:tableuser" />
+						
+<p:growl  autoUpdate="true" id="gorwl1" sticky="true" 
+				showDetail="true" >
+				</p:growl>
+				</h:form>	
+							
+						</div>
+				</div>
+
+
+
+
+				</main>
+			</div>
+
+
+
+
+			<script src="ressources/js/material.min.js"></script>
+
+	</f:view>
+</body>
+</html>
